@@ -60,9 +60,10 @@ class BucketMaker:
         """
         for root, dirs, files in os.walk(self.__PATH__):
             for filename in files:
-                local_p = os.path.join(root, filename)
-                keyname = re.sub(r'files\/', '', local_p)
-                self.__upload_file(local_p, keyname)
+                if not filename.startswith("."):
+                    local_p = os.path.join(root, filename)
+                    keyname = re.sub(r'files\/', '', local_p)
+                    self.__upload_file(local_p, keyname)
 
     def __build_url(self, region):
         """
